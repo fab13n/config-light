@@ -13,10 +13,7 @@ const CONFIG_BASEDIR = process.env.CONFIG_BASEDIR || process.env.NODE_CONFIG_BAS
 const CONFIG_DIR = process.env.CONFIG_DIR || process.env.NODE_CONFIG_DIR;
 const CONFIG = _.assign({}, JSON.parse(process.env.CONFIG || process.env.NODE_CONFIG || '{}'), _.omit(argv, '_', '$0'));
 const parent = module.parent;
-if(!parent){
-  throw new TypeError('config-light shoule be call in yourself module.');
-}
-const require_from = path.dirname(parent.filename);
+const require_from = parent ? path.dirname(parent.filename) : process.cwd();
 
 module.exports = function configLite(options) {
   let config = {};
